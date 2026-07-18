@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<head><title>Output</title></head>
+<body>
+  <input type="file" id="fileInput" />
+<pre id="fileDisplayArea"></pre>
+<script>
+const fileInput = document.getElementById("fileInput");
+const fileDisplayArea = document.getElementById("fileDisplayArea");
+
+fileInput.addEventListener("change", () => {
+    const file = fileInput.files[0];
+
+    if (!file.type.startsWith("text/")) {
+        fileDisplayArea.textContent = "File not supported.";
+        return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = () => {
+        fileDisplayArea.textContent = reader.result;
+    };
+
+    reader.onerror = () => {
+        fileDisplayArea.textContent = "Error reading file.";
+    };
+
+    reader.readAsText(file);
+});
+
+
+
+  
+</script>
+</body>
